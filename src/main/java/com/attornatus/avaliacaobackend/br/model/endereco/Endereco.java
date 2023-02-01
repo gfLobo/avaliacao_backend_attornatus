@@ -1,4 +1,4 @@
-package com.attornatus.avaliacaobackend.br.model;
+package com.attornatus.avaliacaobackend.br.model.endereco;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

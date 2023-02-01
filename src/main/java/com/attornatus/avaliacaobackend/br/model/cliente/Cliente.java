@@ -1,4 +1,6 @@
-package com.attornatus.avaliacaobackend.br.model;
+package com.attornatus.avaliacaobackend.br.model.cliente;
+
+import com.attornatus.avaliacaobackend.br.model.endereco.Endereco;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

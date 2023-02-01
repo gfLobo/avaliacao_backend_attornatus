@@ -1,7 +1,7 @@
 package com.attornatus.avaliacaobackend.br.service;
 
-import com.attornatus.avaliacaobackend.br.model.Cliente;
-import com.attornatus.avaliacaobackend.br.model.Endereco;
+import com.attornatus.avaliacaobackend.br.model.cliente.Cliente;
+import com.attornatus.avaliacaobackend.br.model.endereco.Endereco;
 
 import java.util.List;
 

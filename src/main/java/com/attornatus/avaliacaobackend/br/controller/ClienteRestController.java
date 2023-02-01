@@ -1,6 +1,6 @@
 package com.attornatus.avaliacaobackend.br.controller;
 
-import com.attornatus.avaliacaobackend.br.model.Endereco;
+import com.attornatus.avaliacaobackend.br.model.endereco.Endereco;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.attornatus.avaliacaobackend.br.model.Cliente;
+import com.attornatus.avaliacaobackend.br.model.cliente.Cliente;
 import com.attornatus.avaliacaobackend.br.service.ClienteService;
 
 import java.util.List;

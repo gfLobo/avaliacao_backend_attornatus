@@ -4,13 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.attornatus.avaliacaobackend.br.model.ClienteRepository;
+import com.attornatus.avaliacaobackend.br.model.cliente.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.attornatus.avaliacaobackend.br.model.Cliente;
-import com.attornatus.avaliacaobackend.br.model.Endereco;
-import com.attornatus.avaliacaobackend.br.model.EnderecoRepository;
+import com.attornatus.avaliacaobackend.br.model.cliente.Cliente;
+import com.attornatus.avaliacaobackend.br.model.endereco.Endereco;
+import com.attornatus.avaliacaobackend.br.model.endereco.EnderecoRepository;
 import com.attornatus.avaliacaobackend.br.service.ClienteService;
 import com.attornatus.avaliacaobackend.br.service.ViaCepService;
 
