@@ -29,7 +29,7 @@ Estes também poderão ser feitos diretamente pelo JUnit a partir da rota:
 - [ViaCep API](https://viacep.com.br)
 
 
-`Obs: Para preencher o endereço, apenas preencha o campo CEP com 8 dígitos numéricos válidos e o número do local.`
+`Obs: Para preencher o endereço, apenas preencha o número do local e o campo CEP com 8 dígitos numéricos válidos.`
 
 
 ## Funcionalidades:
