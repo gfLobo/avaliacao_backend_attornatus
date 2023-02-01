@@ -51,6 +51,7 @@ Estes também poderão ser feitos diretamente pelo JUnit a partir da rota:
 - Informar qual endereço é o principal da pessoa
 
 
+
 >### Cliente.java
 >+ Nome
 >+ Data de nascimento 
