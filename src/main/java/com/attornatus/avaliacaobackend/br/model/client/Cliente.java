@@ -1,4 +1,4 @@
-package com.attornatus.avaliacaobackend.br.model.cliente;
+package com.attornatus.avaliacaobackend.br.model.client;
 
 import com.attornatus.avaliacaobackend.br.model.endereco.Endereco;
 

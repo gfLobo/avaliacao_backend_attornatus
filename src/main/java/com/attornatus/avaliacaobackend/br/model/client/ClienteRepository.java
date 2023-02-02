@@ -1,4 +1,4 @@
-package com.attornatus.avaliacaobackend.br.model.cliente;
+package com.attornatus.avaliacaobackend.br.model.client;
 
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

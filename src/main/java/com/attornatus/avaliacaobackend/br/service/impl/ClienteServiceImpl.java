@@ -4,11 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import com.attornatus.avaliacaobackend.br.model.cliente.ClienteRepository;
+import com.attornatus.avaliacaobackend.br.model.client.ClienteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.attornatus.avaliacaobackend.br.model.cliente.Cliente;
+import com.attornatus.avaliacaobackend.br.model.client.Cliente;
 import com.attornatus.avaliacaobackend.br.model.endereco.Endereco;
 import com.attornatus.avaliacaobackend.br.model.endereco.EnderecoRepository;
 import com.attornatus.avaliacaobackend.br.service.ClienteService;
@@ -46,20 +46,18 @@ public class ClienteServiceImpl implements ClienteService {
 	@Override
 	public Endereco inserirEndereco(Long id, Endereco endereco) {
 		Cliente cliente = buscarPorId(id);
-		List<Endereco> enderecos = cliente.getEnderecos();
-
-		Endereco novoEndereco = enderecoRepository.findById(endereco.getCep()).orElseGet(() ->
-				viaCepService.consultarCep(endereco.getCep())
-		);
+		List<Endereco> novosEnderecos = cliente.getEnderecos();
+		Endereco novoEndereco = enderecoRepository.findById(endereco.getCep())
+				.orElseGet(() -> viaCepService.consultarCep(endereco.getCep()));
 		novoEndereco.setPrincipal(endereco.isPrincipal());
 		novoEndereco.setNumero(endereco.getNumero());
+		novosEnderecos.add(novoEndereco);
+		cliente.setEnderecos(novosEnderecos);
 		enderecoRepository.save(novoEndereco);
-
-		enderecos.add(novoEndereco);
-		cliente.setEnderecos(enderecos);
-		atualizar(id, cliente);
+		clienteRepository.save(cliente);
 		return novoEndereco;
 	}
+
 
 	@Override
 	public void inserir(Cliente cliente) {
@@ -83,7 +81,9 @@ public class ClienteServiceImpl implements ClienteService {
 
 	private void salvarClienteComCep(Cliente cliente) {
 		List<Endereco> enderecos = new ArrayList<>();
+
 		// Verificar se o Endereco do Cliente já existe (pelo CEP).
+
 		for (int i = 0; i < cliente.getEnderecos().size(); i++) {
 			Endereco enderecoGet = cliente.getEnderecos().get(i);
 			String cep = enderecoGet.getCep();

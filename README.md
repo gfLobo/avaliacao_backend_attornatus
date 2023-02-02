@@ -31,8 +31,6 @@ Estes também poderão ser feitos diretamente pelo JUnit a partir da rota:
 
 `Obs: Para preencher o endereço, apenas preencha o número do local e o campo CEP com 8 dígitos numéricos válidos.`
 
-`Obs: O username padrão é o "user" e a senha é gerada automaticamente no console da aplicação, durante a build.`
-
 
 ## Funcionalidades:
 

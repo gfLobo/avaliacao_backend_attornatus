@@ -1,33 +1,51 @@
 package com.attornatus.avaliacaobackend.br.controller;
 
+import com.attornatus.avaliacaobackend.br.dto.DadosLogin;
+import com.attornatus.avaliacaobackend.br.dto.UserAutheticatedDTO;
+import com.attornatus.avaliacaobackend.br.model.client.Cliente;
 import com.attornatus.avaliacaobackend.br.model.endereco.Endereco;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import com.attornatus.avaliacaobackend.br.model.cliente.Cliente;
+import com.attornatus.avaliacaobackend.br.model.user.User;
+import com.attornatus.avaliacaobackend.br.security.UserAuthenticationService;
 import com.attornatus.avaliacaobackend.br.service.ClienteService;
+import com.attornatus.avaliacaobackend.br.service.ViaCepService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 
 @RestController
-@RequestMapping("clientes")
+@RequestMapping(value = "clientes")
 public class ClienteRestController {
 
 	@Autowired
 	private ClienteService clienteService;
+	private UserAuthenticationService userAuthenticationService;
+
+	@Autowired
+	private void AuthenticationController(UserAuthenticationService userAuthenticationService){
+		this.userAuthenticationService = userAuthenticationService;
+	}
+	private int login(String email, String senha, String token){
+		DadosLogin dadosLogin = new DadosLogin();
+		dadosLogin.setSenha(senha);
+		dadosLogin.setEmail(email);
+		User user = userAuthenticationService.authenticate(dadosLogin, token);
+
+		return new ResponseEntity<>(UserAutheticatedDTO.toDTO(user, "Bearer "), HttpStatus.ACCEPTED).getStatusCodeValue();
+
+	}
 
 	@GetMapping
-	public ResponseEntity<Iterable<Cliente>> buscarTodos() {
-		return ResponseEntity.ok(clienteService.buscarTodos());
+	public ResponseEntity<Iterable<Cliente>> buscarTodos(@RequestHeader String email, @RequestHeader String senha, @RequestHeader String token) {
+
+		if(login(email, senha, token) == 202){
+			return ResponseEntity.ok(clienteService.buscarTodos());
+		}else{
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 
 	@GetMapping("/{id}")
@@ -57,8 +75,13 @@ public class ClienteRestController {
 	}
 
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> deletar(@PathVariable Long id) {
-		clienteService.deletar(id);
-		return ResponseEntity.ok().build();
+	public ResponseEntity<Void> deletar(@PathVariable Long id, @RequestHeader String email, @RequestHeader String senha, @RequestHeader String token) {
+
+		if(login(email, senha, token) == 202){
+			clienteService.deletar(id);
+			return ResponseEntity.ok().build();
+		}else{
+			return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+		}
 	}
 }
